@@ -57,7 +57,6 @@ public class BottomSheetAddImage extends BottomSheetDialogFragment {
     String currentPhotoPath;
     private static final int TAKE_PICTURE_FROM_CAMERA = 111;
     private static final int PICK_PICTURE_FROM_GALLERY = 222;
-    private RxBus rxBus;
     public BottomSheetAddImage() {
     }
 
@@ -78,16 +77,13 @@ public class BottomSheetAddImage extends BottomSheetDialogFragment {
 
         View view = inflater.inflate(R.layout.bottom_sheet_update_profile_image, container, false);
         unbinder = ButterKnife.bind(this, view);
-        RxJavaInit();
         checkPermissions();
 
         clickListners();
         return view;
     }
 
-    private void RxJavaInit() {
-        rxBus = ((MyApplication) getContext().getApplicationContext()).getRxBus();
-    }
+
 
     private void checkPermissions() {
         galleryPermission = new PermissionListener() {
@@ -164,7 +160,7 @@ public class BottomSheetAddImage extends BottomSheetDialogFragment {
         if (resultCode == RESULT_OK) {
             if (requestCode == TAKE_PICTURE_FROM_CAMERA) {
                 File f = new File(currentPhotoPath);
-                rxBus.sendUserImage(f);
+                RxBus.getInstance().sendUserImage(f);
                 dismiss();
                 MainActivity.isBottomSheetOpen=false;
 
@@ -188,7 +184,7 @@ public class BottomSheetAddImage extends BottomSheetDialogFragment {
                     final String picturePath = cursor.getString(columnIndex);
                     cursor.close();
                     final File selectedFile = new File(picturePath);
-                    rxBus.sendUserImage(selectedFile);
+                    RxBus.getInstance().sendUserImage(selectedFile);
                     dismiss();
                     MainActivity.isBottomSheetOpen=false;
                 }

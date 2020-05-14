@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.txt_no_image_found)
     AppCompatTextView txtNoImageFound;
 
-    RxBus rxBus;
     List<File> allFiles;
     String userName = "dummy";
     ImagesAdapter adapter;
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         initilizedAdapter();
         AdapterListner();
         checkAnyImageExistOrNot();
-        initilizedRxBus();
         ClickListners();
 
     }
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-        rxBus.observeUserImage().subscribe(new Observer<File>() {
+        RxBus.getInstance().observeUserImage().subscribe(new Observer<File>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -161,9 +159,6 @@ public class MainActivity extends AppCompatActivity {
         return defaultFile;
     }
 
-    private void initilizedRxBus() {
-        rxBus = ((MyApplication) getApplicationContext()).getRxBus();
-    }
 
     private void AdapterListner() {
         adapter.setonItemDelete(new ImagesAdapter.OnItemDelete() {
@@ -326,4 +321,9 @@ public class MainActivity extends AppCompatActivity {
             finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.getInstance().clearRx();
+    }
 }
