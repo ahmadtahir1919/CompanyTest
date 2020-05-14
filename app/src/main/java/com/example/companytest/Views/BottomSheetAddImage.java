@@ -129,7 +129,7 @@ public class BottomSheetAddImage extends BottomSheetDialogFragment {
                     TedPermission.with(getContext())
                             .setPermissionListener(cameraPermission)
                             .setDeniedMessage(R.string.permission_denied)
-                            .setPermissions(Manifest.permission.CAMERA)
+                            .setPermissions(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             .check();
             }
         });

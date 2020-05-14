@@ -170,6 +170,13 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+        txtSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerView.setVisibility(View.GONE);
+                loginView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void setGender(int checkedId) {

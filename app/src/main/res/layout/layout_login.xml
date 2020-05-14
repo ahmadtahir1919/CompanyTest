@@ -106,7 +106,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_16sdp"
         android:gravity="center"
-        android:text="@string/already_have_account_sign_in"
+        android:text="@string/donot_have_account_sign_up"
         android:textColor="@color/grey"
         android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
